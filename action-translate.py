@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import configparser
 from hermes_python.hermes import Hermes, MqttOptions
+import configparser
 import io
 from translate import Translator
 import toml

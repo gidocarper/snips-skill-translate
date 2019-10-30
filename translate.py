@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from hermes_python.hermes import Hermes, MqttOptions
 import os, requests, json, base64
 import datetime
 import random
-from hermes_python.hermes import Hermes, MqttOptions
 
 
 class Translator:
