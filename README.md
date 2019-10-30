@@ -25,14 +25,19 @@ skill `Translate` (by mcitar; [this]()) to your *German* assistant.
     ```bash
     sam install assistant [your project id]
     ```
-
 6. During the installation qou will be asked to enter your azure and google key:
     - `azure_key` enter your azures key
     - `google_wavenet_key` enter your google key
     - `translator_voice_gender` (enter FEMALE OR MALE, notice not all languages have a mal voice )
-    This data is stored on your device only.
+    This data is stored on your device only. If you missed it you can change the values in the /var/lib/snips/skills/snips-skill-translate/config.ini file
     
-5. To update the values simply run
+7. Sometimes snipes gives you a permission error, if that happens just follow SAM's hint.
+    ```bash
+    chmod +x /var/lib/snips/skills/snips-skill-translate/action-translate.py
+    sudo systemctl restart snips-skill-server
+    ```
+    
+8. To update the values simply run
     ```bash
     sam install skills
     ```
@@ -42,9 +47,6 @@ skill `Translate` (by mcitar; [this]()) to your *German* assistant.
     sudo rm -rf /var/lin/snips/skills/snips-skill-translate/
     ```
    
-
-    
-6. enter your azure key and google key if you get asked for it (you can update this later in the config.ini files).
  
 ### Example sentences
 - *hey snips, bitte übersetzen [ein Wort] auf Franzözisch*
