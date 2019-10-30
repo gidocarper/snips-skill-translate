@@ -16,7 +16,6 @@ MQTT_PASSWORD = None
 def add_prefix(intent_name):
     return USERNAME_INTENTS + ":" + intent_name
 
-
 def read_configuration_file():
     try:
         cp = configparser.ConfigParser()
@@ -30,13 +29,6 @@ def read_configuration_file():
 
 def intent_callback_translate(hermes, intent_message):
     hermes.publish_end_session(intent_message.session_id, translator.translate(hermes, intent_message))
-
-def intent_callback_get_text_to_translate(hermes, intent_message):
-    hermes.publish_end_session(intent_message.session_id, translator.get_text_to_translate(hermes, intent_message, True))
-
-def intent_callback_get_language(hermes, intent_message):
-    hermes.publish_end_session(intent_message.session_id, translator.get_language(hermes, intent_message, True))
-
 
 
 if __name__ == "__main__":
@@ -54,6 +46,4 @@ if __name__ == "__main__":
 
     with Hermes(mqtt_options=mqtt_opts) as h:
         h.subscribe_intent(add_prefix("translate"), intent_callback_translate)
-        h.subscribe_intent(add_prefix("getTextToTranslate"), intent_callback_get_text_to_translate)
-        h.subscribe_intent(add_prefix("getLanguage"), intent_callback_get_language)
         h.start()

@@ -5,6 +5,7 @@ from hermes_python.hermes import Hermes, MqttOptions
 import os, requests, json, base64
 import datetime
 import random
+import subprocess
 
 
 class Translator:
@@ -45,10 +46,11 @@ class Translator:
         }
         request = requests.post(token_url, headers=token_headers, json=token_body)
 
-        accessToken = (request.content).decode('ascii')
+        accessToken = (request.content).decode('utf-8')
         toLanguage = self.get_language_code()
         fromLanguage = 'de'
-
+        print(toLanguage)
+        print(self.text_to_translate)
         params = u'text={}&to={}&from={}&appId=Bearer+{}'.format(str(self.text_to_translate), str(toLanguage), str(fromLanguage),
                                                                  str(accessToken))
         translateUrl = u'http://api.microsofttranslator.com/v2/Http.svc/Translate?{}'.format(str(params))
@@ -57,9 +59,11 @@ class Translator:
             'Content-type': 'application/json'
         }
         request = requests.get(translateUrl, headers=headers, json=body)
-
+        print(request)
+        print(request.text)
         # this sucks has anybody a better idea?
-        rawTranslation = (request.content).decode('ascii')
+        rawTranslation = (request.text)
+#.decode('ascii')
         translation = rawTranslation.replace('<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">',
                                              '')
         translation = translation.replace('</string>', '')
@@ -78,13 +82,16 @@ class Translator:
         language = self.get_language_code()
         country = self.get_country_code()
 
-        data = '{\'input\':{\'text\':\'' + translation + '.\'},\'voice\':{\'languageCode\':\'' + language + '-' + language + '\',\'name\':\'' + language + '-' + country + '-Wavenet-A\',\'ssmlGender\':\'' + self.translator_voice_gender + '\'},\'audioConfig\':{\'audioEncoding\':\'MP3\'}}'
+        data = u'{\'input\':{\'text\':\'' + translation + '.\'},\'voice\':{\'languageCode\':\'' + language + '-' + language + '\',\'name\':\'' + language + '-' + country + '-Wavenet-A\',\'ssmlGender\':\'' + self.translator_voice_gender + '\'},\'audioConfig\':{\'audioEncoding\':\'MP3\'}}'
         print(data);
         response = requests.post('https://texttospeech.googleapis.com/v1/text:synthesize?key=' + self.google_wavenet_key, headers=headers, data=data)
         file_content = base64.b64decode(json.loads(response.text)['audioContent'])
         filemp3 = open("resp_text.mp3", "wb")
         filemp3.write(file_content)
         filemp3.close()
+        subprocess.call(["mpg321", "resp_text.mp3"])
+        #music = pyglet.resource.media('resp_text.mp3')
+        #music.play()
 
 
     def get_language_code(self):
