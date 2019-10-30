@@ -65,17 +65,20 @@ class Translator:
         translation = translation.replace('</string>', '')
 
         if self.google_wavenet_key:
-            return self.text_to_speech(translation, self.language)
+            return self.text_to_speech(translation)
         else:
             return translation
 
 
-    def text_to_speech(self, message, languageTo):
+    def text_to_speech(self, translation):
         headers = {
             'Content-Type': 'application/json; charset=utf-8',
         }
 
-        data = '{\'input\':{\'text\':\'' + message + '.\'},\'voice\':{\'languageCode\':\'' + languageTo + '-' + languageTo + '\',\'name\':\'' + languageTo + '-' + languageTo.upper() + '-Wavenet-A\',\'ssmlGender\':\'' + self.translator_voice_gender + '\'},\'audioConfig\':{\'audioEncoding\':\'MP3\'}}'
+        language = self.get_language_code()
+        country = self.get_country_code()
+
+        data = '{\'input\':{\'text\':\'' + translation + '.\'},\'voice\':{\'languageCode\':\'' + language + '-' + language + '\',\'name\':\'' + language + '-' + country + '-Wavenet-A\',\'ssmlGender\':\'' + self.translator_voice_gender + '\'},\'audioConfig\':{\'audioEncoding\':\'MP3\'}}'
         print(data);
         response = requests.post('https://texttospeech.googleapis.com/v1/text:synthesize?key=' + self.google_wavenet_key, headers=headers, data=data)
         file_content = base64.b64decode(json.loads(response.text)['audioContent'])
