@@ -4,7 +4,7 @@
 import configparser
 from hermes_python.hermes import Hermes, MqttOptions
 import io
-from translator import Translator
+from translate import Translator
 import toml
 
 USERNAME_INTENTS = "mcitar"
