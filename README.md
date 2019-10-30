@@ -57,3 +57,24 @@ skill `Translate` (by mcitar; [this]()) to your *German* assistant.
 
 ## Todo
 - this is "work in process" some languages don't work like russian and ukrain. 
+possible language should be:
+Australisch
+Amerikanisch
+Belgisch
+Dänisch
+Französisch
+Englisch
+Italienisch
+Japanisch
+Koreanisch
+Niederländisch
+Norwegisch
+Brasilianisch
+Portugiesisch
+Polnisch
+Russisch
+Slowakisch
+Schwedisch
+Spanisch
+Türkisch
+Ukrainisch
