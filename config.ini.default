@@ -1,0 +1,6 @@
+[global]
+
+[secret]
+azure_key=
+google_wavenet_key=
+translator_voice_gender=
