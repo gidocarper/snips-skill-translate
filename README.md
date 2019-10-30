@@ -31,7 +31,7 @@ skill `Translate` (by mcitar; [this]()) to your *German* assistant.
     - `translator_voice_gender` (enter FEMALE OR MALE, notice not all languages have a mal voice )
     This data is stored on your device only. If you missed it you can change the values in the /var/lib/snips/skills/snips-skill-translate/config.ini file
     
-7. Sometimes snipes gives you a permission error, if that happens just follow SAM's hint.
+7. Sometimes snipes gives you a permission error, if that happens just follow SAM's hint. And enter this on your raspberry
     ```bash
     chmod +x /var/lib/snips/skills/snips-skill-translate/action-translate.py
     sudo systemctl restart snips-skill-server
